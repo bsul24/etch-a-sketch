@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Etch-A-Sketch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style.css" />
     <script defer src="./script.js"></script>
   </head>
@@ -14,17 +20,16 @@
     </header>
     <div class="functions">
       <div class="buttons">
-        <button class="standard-btn">Standard</button>
-        <button class="wacky-btn">Wacky</button>
-        <button class="erase-btn">Eraser</button>
+        <button class="standard-btn select-btn">Standard</button>
+        <button class="wacky-btn select-btn">Wacky</button>
+        <button class="erase-btn select-btn">Eraser</button>
         <button class="clear">Clear</button>
       </div>
       <div class="grid-selection">
         <p>Grid Size:&nbsp;</p>
         <input class="grid-input" type="number" min="1" max="100" value="10" />
         <p>
-          &nbsp;(Will create grid with this many squares per side. Min 1, max
-          100)
+          &nbsp;(Create grid with this many squares per side. Min 1, max 100)
         </p>
       </div>
     </div>

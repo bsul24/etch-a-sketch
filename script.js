@@ -2,10 +2,10 @@
 
 const container = document.querySelector(".container");
 let squares = document.querySelectorAll(".square");
-const gridBtn = document.querySelector(".grid-btn");
 const standardBtn = document.querySelector(".standard-btn");
 const wackyBtn = document.querySelector(".wacky-btn");
 const eraseBtn = document.querySelector(".erase-btn");
+const selectBtns = document.querySelectorAll(".select-btn");
 const clearBtn = document.querySelector(".clear");
 const gridInput = document.querySelector(".grid-input");
 let gridSize = 10;
@@ -36,6 +36,8 @@ const createGrid = function (e) {
   }
   squares = document.querySelectorAll(".square");
   drawType = "standard";
+  selectBtns.forEach((btn) => btn.classList.remove("selected"));
+  standardBtn.classList.add("selected");
 };
 
 const startDrawing = function (e) {
@@ -49,11 +51,22 @@ const stopDrawing = function (e) {
 };
 
 const changeDrawingType = function (e) {
-  if (e.target === standardBtn) drawType = "standard";
+  selectBtns.forEach((btn) => btn.classList.remove("selected"));
 
-  if (e.target === wackyBtn) drawType = "wacky";
+  if (e.target === standardBtn) {
+    drawType = "standard";
+    standardBtn.classList.add("selected");
+  }
 
-  if (e.target === eraseBtn) drawType = "erase";
+  if (e.target === wackyBtn) {
+    drawType = "wacky";
+    wackyBtn.classList.add("selected");
+  }
+
+  if (e.target === eraseBtn) {
+    drawType = "erase";
+    eraseBtn.classList.add("selected");
+  }
 };
 
 const changeColor = function (e) {

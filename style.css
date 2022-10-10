@@ -4,6 +4,38 @@
   margin: 0;
 }
 
+body {
+  font-family: "Inter", sans-serif;
+  color: #343a40;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #fff;
+  padding: 10px 20px;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  color: #343a40;
+  border: 2px solid #343a40;
+  border-radius: 9px;
+  transition: scale 0.3s;
+}
+
+button:hover {
+  scale: 1.1;
+}
+
+input {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  color: #343a40;
+  width: 3.5rem;
+}
+
 .container {
   margin: 2rem auto;
   border: 3px solid #212529;
@@ -26,8 +58,20 @@
   margin: 0 3rem;
 }
 
+.buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.selected {
+  background-color: #212529;
+  color: #fff;
+}
+
 .grid-selection {
   display: flex;
+  font-size: 20px;
 }
 
 .row {
