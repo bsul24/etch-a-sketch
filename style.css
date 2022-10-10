@@ -43,7 +43,6 @@ input {
   flex-direction: column;
   width: 70vmin;
   height: 70vmin;
-  touch-action: none;
 }
 
 .header {
