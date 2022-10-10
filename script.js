@@ -1,32 +1,34 @@
 "use strict";
 
 const container = document.querySelector(".container");
-const gridSize = document.querySelector(".grid-size");
-const submitBtn = document.querySelector(".submit");
+const gridBtn = document.querySelector(".grid-btn");
 const clearBtn = document.querySelector(".clear");
+let gridSize = 10;
 
 const getGridSize = function () {
-  const size = prompt(
+  const size = +prompt(
     "Please enter grid size. Enter a number between 1 and 100.",
     ""
   );
 
-  if (!size) getGridSize();
+  if (size > 0 && size < 101) {
+    gridSize = size;
+    return;
+  }
 
-  return size;
+  getGridSize();
 };
 
-const createGrid = function () {
-  const size = +gridSize.value;
+const createGrid = function (e) {
+  if (e.target === gridBtn) getGridSize();
 
-  if (!size) return;
-
-  clearGrid();
-  const width = 100 / size;
-  for (let i = 0; i < size; i++) {
+  console.log(gridSize);
+  container.innerHTML = "";
+  const width = 100 / gridSize;
+  for (let i = 0; i < gridSize; i++) {
     const row = document.createElement("div");
     row.classList.add("row");
-    for (let j = 0; j < size; j++) {
+    for (let j = 0; j < gridSize; j++) {
       const square = document.createElement("div");
       square.classList.add("square");
       square.style.width = `${width}%`;
@@ -38,7 +40,8 @@ const createGrid = function () {
 };
 
 const clearGrid = function () {
-  container.innerHTML = "";
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((square) => square.classList.remove("selected"));
 };
 
 const changeColor = function (e) {
@@ -47,7 +50,6 @@ const changeColor = function (e) {
 };
 
 // Event listeners
-const squares = [...document.querySelectorAll(".square")];
-squares.forEach((square) => square.addEventListener("mouseenter", changeColor));
-submitBtn.addEventListener("click", createGrid);
+gridBtn.addEventListener("click", createGrid);
 clearBtn.addEventListener("click", clearGrid);
+window.addEventListener("DOMContentLoaded", createGrid);
