@@ -10,7 +10,7 @@ const clearBtn = document.querySelector(".clear");
 const gridInput = document.querySelector(".grid-input");
 let gridSize = 10;
 let drawType = "standard";
-let mouseClicked = false;
+let pointerClicked = false;
 
 const createGrid = function (e) {
   const gridSize = gridInput.value;
@@ -28,8 +28,8 @@ const createGrid = function (e) {
       const square = document.createElement("div");
       square.classList.add("square");
       square.style.width = `${width}%`;
-      square.addEventListener("mouseenter", changeColor);
-      square.addEventListener("mousedown", changeColor);
+      square.addEventListener("pointerenter", changeColor);
+      square.addEventListener("pointerdown", changeColor);
       row.appendChild(square);
     }
     container.appendChild(row);
@@ -42,12 +42,12 @@ const createGrid = function (e) {
 
 const startDrawing = function (e) {
   e.preventDefault();
-  mouseClicked = true;
+  pointerClicked = true;
 };
 
 const stopDrawing = function (e) {
   e.preventDefault();
-  mouseClicked = false;
+  pointerClicked = false;
 };
 
 const changeDrawingType = function (e) {
@@ -70,7 +70,7 @@ const changeDrawingType = function (e) {
 };
 
 const changeColor = function (e) {
-  if (!mouseClicked && e.type !== "mousedown") return;
+  if (!pointerClicked && e.type !== "pointerdown") return;
   const square = e.target;
 
   if (drawType === "standard") square.style.backgroundColor = "#212529";
@@ -90,8 +90,8 @@ const generateRandomRGB = function () {
 };
 
 // Event listeners
-container.addEventListener("mousedown", startDrawing);
-container.addEventListener("mouseup", stopDrawing);
+container.addEventListener("pointerdown", startDrawing);
+container.addEventListener("pointerup", stopDrawing);
 gridInput.addEventListener("change", createGrid);
 standardBtn.addEventListener("click", changeDrawingType);
 wackyBtn.addEventListener("click", changeDrawingType);
