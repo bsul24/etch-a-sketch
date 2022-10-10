@@ -35,6 +35,11 @@ const createGrid = function (e) {
     container.appendChild(row);
   }
   squares = document.querySelectorAll(".square");
+  squares.forEach((square) =>
+    square.addEventListener("gotpointercapture", (e) =>
+      e.target.releasePointerCapture(e.pointerId)
+    )
+  );
   drawType = "standard";
   selectBtns.forEach((btn) => btn.classList.remove("selected"));
   standardBtn.classList.add("selected");
