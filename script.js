@@ -1,31 +1,24 @@
 "use strict";
 
 const container = document.querySelector(".container");
+let squares = document.querySelectorAll(".square");
 const gridBtn = document.querySelector(".grid-btn");
 const standardBtn = document.querySelector(".standard-btn");
 const wackyBtn = document.querySelector(".wacky-btn");
+const eraseBtn = document.querySelector(".erase-btn");
 const clearBtn = document.querySelector(".clear");
+const gridInput = document.querySelector(".grid-input");
 let gridSize = 10;
 let drawType = "standard";
 let mouseClicked = false;
 
-const getGridSize = function () {
-  const size = +prompt(
-    "Please enter grid size. Enter a number between 1 and 100.",
-    ""
-  );
-
-  if (size > 0 && size < 101) {
-    gridSize = size;
+const createGrid = function (e) {
+  const gridSize = gridInput.value;
+  if (!(gridSize > 0 && gridSize < 101)) {
+    alert("Please input a number between 1 and 100");
     return;
   }
-
-  getGridSize();
-};
-
-const createGrid = function (e) {
-  if (e.target === gridBtn) getGridSize();
-
+  gridInput.blur();
   container.innerHTML = "";
   const width = 100 / gridSize;
   for (let i = 0; i < gridSize; i++) {
@@ -41,11 +34,8 @@ const createGrid = function (e) {
     }
     container.appendChild(row);
   }
-};
-
-const clearGrid = function () {
-  const squares = document.querySelectorAll(".square");
-  squares.forEach((square) => (square.style.backgroundColor = "#fff"));
+  squares = document.querySelectorAll(".square");
+  drawType = "standard";
 };
 
 const startDrawing = function (e) {
@@ -63,7 +53,7 @@ const changeDrawingType = function (e) {
 
   if (e.target === wackyBtn) drawType = "wacky";
 
-  console.log(drawType);
+  if (e.target === eraseBtn) drawType = "erase";
 };
 
 const changeColor = function (e) {
@@ -74,6 +64,8 @@ const changeColor = function (e) {
 
   if (drawType === "wacky")
     square.style.backgroundColor = `rgb(${generateRandomRGB()})`;
+
+  if (drawType === "erase") square.style.backgroundColor = "#fff";
 };
 
 const generateRandomRGB = function () {
@@ -87,8 +79,10 @@ const generateRandomRGB = function () {
 // Event listeners
 container.addEventListener("mousedown", startDrawing);
 container.addEventListener("mouseup", stopDrawing);
-gridBtn.addEventListener("click", createGrid);
+gridInput.addEventListener("change", createGrid);
 standardBtn.addEventListener("click", changeDrawingType);
 wackyBtn.addEventListener("click", changeDrawingType);
-clearBtn.addEventListener("click", clearGrid);
+eraseBtn.addEventListener("click", changeDrawingType);
+// Have found that fastest way to clear grid so far is just to make a new one
+clearBtn.addEventListener("click", createGrid);
 window.addEventListener("DOMContentLoaded", createGrid);

@@ -10,11 +10,24 @@
   </head>
   <body>
     <header class="header">
-      <button class="grid-btn">Change Grid Size</button>
-      <button class="standard-btn">Standard</button>
-      <button class="wacky-btn">Wacky</button>
-      <button class="clear">Clear</button>
+      <h1>Etch a Sketch</h1>
     </header>
+    <div class="functions">
+      <div class="buttons">
+        <button class="standard-btn">Standard</button>
+        <button class="wacky-btn">Wacky</button>
+        <button class="erase-btn">Eraser</button>
+        <button class="clear">Clear</button>
+      </div>
+      <div class="grid-selection">
+        <p>Grid Size:&nbsp;</p>
+        <input class="grid-input" type="number" min="1" max="100" value="10" />
+        <p>
+          &nbsp;(Will create grid with this many squares per side. Min 1, max
+          100)
+        </p>
+      </div>
+    </div>
     <div class="container"></div>
   </body>
 </html>
