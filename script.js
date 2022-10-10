@@ -2,8 +2,11 @@
 
 const container = document.querySelector(".container");
 const gridBtn = document.querySelector(".grid-btn");
+const standardBtn = document.querySelector(".standard-btn");
+const wackyBtn = document.querySelector(".wacky-btn");
 const clearBtn = document.querySelector(".clear");
 let gridSize = 10;
+let drawType = "standard";
 let mouseClicked = false;
 
 const getGridSize = function () {
@@ -42,30 +45,50 @@ const createGrid = function (e) {
 
 const clearGrid = function () {
   const squares = document.querySelectorAll(".square");
-  squares.forEach((square) => square.classList.remove("selected"));
+  squares.forEach((square) => (square.style.backgroundColor = "#fff"));
 };
 
 const startDrawing = function (e) {
   e.preventDefault();
-  console.log("clicked");
   mouseClicked = true;
 };
 
 const stopDrawing = function (e) {
   e.preventDefault();
-  console.log("unclicked");
   mouseClicked = false;
+};
+
+const changeDrawingType = function (e) {
+  if (e.target === standardBtn) drawType = "standard";
+
+  if (e.target === wackyBtn) drawType = "wacky";
+
+  console.log(drawType);
 };
 
 const changeColor = function (e) {
   if (!mouseClicked && e.type !== "mousedown") return;
   const square = e.target;
-  square.classList.add("selected");
+
+  if (drawType === "standard") square.style.backgroundColor = "#212529";
+
+  if (drawType === "wacky")
+    square.style.backgroundColor = `rgb(${generateRandomRGB()})`;
+};
+
+const generateRandomRGB = function () {
+  const rgb = [];
+  for (let i = 0; i < 3; i++) {
+    rgb.push(Math.floor(Math.random() * 256));
+  }
+  return rgb.join(", ");
 };
 
 // Event listeners
 container.addEventListener("mousedown", startDrawing);
 container.addEventListener("mouseup", stopDrawing);
 gridBtn.addEventListener("click", createGrid);
+standardBtn.addEventListener("click", changeDrawingType);
+wackyBtn.addEventListener("click", changeDrawingType);
 clearBtn.addEventListener("click", clearGrid);
 window.addEventListener("DOMContentLoaded", createGrid);
