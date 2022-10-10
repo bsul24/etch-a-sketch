@@ -4,6 +4,7 @@ const container = document.querySelector(".container");
 let squares = document.querySelectorAll(".square");
 const standardBtn = document.querySelector(".standard-btn");
 const wackyBtn = document.querySelector(".wacky-btn");
+const wackyDarkBtn = document.querySelector(".wacky-dark-btn");
 const eraseBtn = document.querySelector(".erase-btn");
 const selectBtns = document.querySelectorAll(".select-btn");
 const clearBtn = document.querySelector(".clear");
@@ -28,6 +29,8 @@ const createGrid = function (e) {
       const square = document.createElement("div");
       square.classList.add("square");
       square.style.width = `${width}%`;
+      square.style.filter = "brightness(1)";
+      square.style.backgroundColor = "#fff";
       square.addEventListener("pointerenter", changeColor);
       square.addEventListener("pointerdown", changeColor);
       row.appendChild(square);
@@ -72,6 +75,11 @@ const changeDrawingType = function (e) {
     drawType = "erase";
     eraseBtn.classList.add("selected");
   }
+
+  if (e.target === wackyDarkBtn) {
+    drawType = "wackyDark";
+    wackyDarkBtn.classList.add("selected");
+  }
 };
 
 const changeColor = function (e) {
@@ -80,10 +88,26 @@ const changeColor = function (e) {
 
   if (drawType === "standard") square.style.backgroundColor = "#212529";
 
-  if (drawType === "wacky")
+  if (drawType === "wacky") {
     square.style.backgroundColor = `rgb(${generateRandomRGB()})`;
+    square.style.filter = "brightness(1)";
+  }
 
-  if (drawType === "erase") square.style.backgroundColor = "#fff";
+  if (drawType === "wackyDark") {
+    if (square.style.backgroundColor === "rgb(255, 255, 255)") {
+      square.style.backgroundColor = `rgb(${generateRandomRGB()})`;
+      return;
+    }
+
+    if (square.style.filter === "brightness(0)") return;
+
+    makeDarker(square);
+  }
+
+  if (drawType === "erase") {
+    square.style.backgroundColor = "#fff";
+    square.style.filter = "brightness(1)";
+  }
 };
 
 const generateRandomRGB = function () {
@@ -94,6 +118,14 @@ const generateRandomRGB = function () {
   return rgb.join(", ");
 };
 
+const makeDarker = function (square) {
+  const filter = square.style.filter;
+  const brightnessEnd = filter.indexOf(")");
+  const brightness = +filter.slice(11, brightnessEnd);
+  const newBrightness = brightness - 0.1;
+  square.style.filter = `brightness(${newBrightness})`;
+};
+
 // Event listeners
 container.addEventListener("pointerdown", startDrawing);
 container.addEventListener("pointerup", stopDrawing);
@@ -101,6 +133,7 @@ container.addEventListener("touchstart", (e) => e.preventDefault());
 gridInput.addEventListener("change", createGrid);
 standardBtn.addEventListener("click", changeDrawingType);
 wackyBtn.addEventListener("click", changeDrawingType);
+wackyDarkBtn.addEventListener("click", changeDrawingType);
 eraseBtn.addEventListener("click", changeDrawingType);
 // Have found that fastest way to clear grid so far is just to make a new one
 clearBtn.addEventListener("click", createGrid);
