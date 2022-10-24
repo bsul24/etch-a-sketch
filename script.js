@@ -129,6 +129,7 @@ const makeDarker = function (square) {
 // Event listeners
 container.addEventListener("pointerdown", startDrawing);
 container.addEventListener("pointerup", stopDrawing);
+container.addEventListener("pointerleave", stopDrawing);
 container.addEventListener("touchstart", (e) => e.preventDefault());
 gridInput.addEventListener("change", createGrid);
 standardBtn.addEventListener("click", changeDrawingType);
